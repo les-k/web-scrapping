@@ -1,0 +1,26 @@
+import requests
+import re
+
+# Make an HTTP request to the quote website
+url = "https://www.examplequotes.com/quotes"
+response = requests.get(url)
+
+# Check if the request was successful
+if response.status_code == 200:
+    # Extract the quotes from the HTML content of the website
+    quotes = re.findall(r'<p class="quote">(.*?)</p>', response.text)
+    
+    # Print each quote
+    for quote in quotes:
+        print(quote)
+else:
+    print("Failed to retrieve website data")
+
+
+
+
+
+
+
+
+

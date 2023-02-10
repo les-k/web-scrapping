@@ -1,0 +1,39 @@
+import requests
+from bs4 import BeautifulSoup
+
+# Make an HTTP request to the bookstore website
+url = "https://www.examplebookstore.com/books"
+response = requests.get(url)
+
+# Check if the request was successful
+if response.status_code == 200:
+    # Parse the HTML content of the website
+    soup = BeautifulSoup(response.text, "html.parser")
+    
+    # Find all the book items
+    book_items = soup.find_all("li", class_="book-item")
+    
+    # Extract information about each book
+    books = []
+    for book_item in book_items:
+        title = book_item.find("h3").text
+        author = book_item.find("p", class_="book-author").text
+        price = book_item.find("p", class_="book-price").text
+        books.append({"title": title, "author": author, "price": price})
+    
+    # Print the information about each book
+    for book in books:
+        print(f"Title: {book['title']}")
+        print(f"Author: {book['author']}")
+        print(f"Price: {book['price']}")
+        print("---")
+else:
+    print("Failed to retrieve website data")
+
+
+
+
+
+
+
+
